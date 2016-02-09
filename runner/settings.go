@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -118,7 +119,11 @@ func buildName() string {
 	return settings["build_name"]
 }
 func buildPath() string {
-	return filepath.Join(tmpPath(), buildName())
+	p := filepath.Join(tmpPath(), buildName())
+	if runtime.GOOS == "windows" && filepath.Ext(p) != ".exe" {
+		p += ".exe"
+	}
+	return p
 }
 
 func buildErrorsFileName() string {
