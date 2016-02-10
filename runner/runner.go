@@ -3,10 +3,17 @@ package runner
 import (
 	"io"
 	"os/exec"
+	"runtime"
 )
 
 func run() bool {
 	runnerLog("Running...")
+
+	// Notify only on linux
+	if runtime.GOOS == "linux" {
+		notify := exec.Command("notify-send", "--expire-time=10", "--urgency=low", "Built")
+		notify.Run()
+	}
 
 	cmd := exec.Command(buildPath())
 
