@@ -11,7 +11,11 @@ func run() bool {
 
 	// Notify only on linux
 	if runtime.GOOS == "linux" {
-		notify := exec.Command("notify-send", "--expire-time=10", "--urgency=low", "Built")
+		notify := exec.Command("notify-send",
+			"--icon=/usr/local/go/blog/content/gopher/gopher.png",
+			"--expire-time=10",
+			"--urgency=low",
+			"Built")
 		notify.Run()
 	}
 
